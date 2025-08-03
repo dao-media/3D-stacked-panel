@@ -15,7 +15,7 @@ An interactive 3D stacked phone component with smooth hover animations and touch
 
 ## Demo
 
-[View on CodePen](https://codepen.io/Dane-OLeary/pen/gbamExj)]
+[View on CodePen](https://codepen.io/Dane-OLeary/pen/gbamExj)
 
 ## Quick Start
 
