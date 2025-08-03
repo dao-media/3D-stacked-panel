@@ -2,7 +2,7 @@
 
 An interactive 3D stacked phone component with smooth hover animations and touch support. Perfect for showcasing multiple app screens or design variations in a visually engaging way.
 
-![Stacked Phones Demo](demo.gif)
+[![See Demo Here](demo.gif)](https://codepen.io/Dane-OLeary/pen/gbamExj)
 
 ## Features
 
