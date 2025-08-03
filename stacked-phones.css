@@ -1,0 +1,230 @@
+:root {
+  /* Configuration Variables */
+  --stack-container-width: 500px;
+  --stack-container-height: 450px;
+  --stack-perspective: 1000px;
+  
+  --phone-width: 180px;
+  --phone-aspect-ratio: 402 / 874;
+  --phone-border-radius: 20px;
+  
+  /* Phone Positioning */
+  --phone-1-top: 0px;
+  --phone-1-left: 0px;
+  --phone-1-rotation: -8deg;
+  --phone-1-z: 0px;
+  
+  --phone-2-top: 30px;
+  --phone-2-left: 120px;
+  --phone-2-rotation: 2deg;
+  --phone-2-z: -20px;
+  
+  --phone-3-top: 15px;
+  --phone-3-left: 240px;
+  --phone-3-rotation: 12deg;
+  --phone-3-z: -40px;
+  
+  /* Hover/Active States */
+  --hover-z-index: 10;
+  --hover-z-translate: 50px;
+  --hover-scale: 1.05;
+  --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --inactive-scale: 0.95;
+  
+  /* Animation */
+  --transition-duration: 0.4s;
+  --transition-easing: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  
+  /* Touch Overlays */
+  --overlay-z-index: 20;
+}
+
+.phone-stack-container {
+  position: relative;
+  width: var(--stack-container-width);
+  height: var(--stack-container-height);
+  margin: 50px auto;
+  perspective: var(--stack-perspective);
+  transform-style: preserve-3d;
+}
+
+.phone-card {
+  position: absolute;
+  width: var(--phone-width);
+  aspect-ratio: var(--phone-aspect-ratio);
+  background: #ffffff;
+  border-radius: var(--phone-border-radius);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-duration) var(--transition-easing);
+  cursor: pointer;
+  overflow: hidden;
+  transform-origin: center center;
+}
+
+/* Individual Phone Positioning */
+.phone-1 {
+  top: var(--phone-1-top);
+  left: var(--phone-1-left);
+  z-index: 3;
+  transform: rotate(var(--phone-1-rotation)) translateZ(var(--phone-1-z));
+}
+
+.phone-2 {
+  top: var(--phone-2-top);
+  left: var(--phone-2-left);
+  z-index: 2;
+  transform: rotate(var(--phone-2-rotation)) translateZ(var(--phone-2-z));
+}
+
+.phone-3 {
+  top: var(--phone-3-top);
+  left: var(--phone-3-left);
+  z-index: 1;
+  transform: rotate(var(--phone-3-rotation)) translateZ(var(--phone-3-z));
+}
+
+/* Image Styling */
+.phone-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Hover Effects for Desktop */
+@media (hover: hover) and (pointer: fine) {
+  .phone-1:hover {
+    z-index: var(--hover-z-index);
+    transform: translate(10px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+    box-shadow: var(--hover-shadow);
+  }
+
+  .phone-1:hover ~ .phone-2 {
+    transform: translate(20px, 10px) rotate(5deg) translateZ(-30px) scale(var(--inactive-scale));
+  }
+
+  .phone-1:hover ~ .phone-3 {
+    transform: translate(30px, 5px) rotate(15deg) translateZ(-50px) scale(var(--inactive-scale));
+  }
+
+  .phone-2:hover {
+    z-index: var(--hover-z-index);
+    transform: translate(-5px, -15px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+    box-shadow: var(--hover-shadow);
+  }
+
+  .phone-2:hover ~ .phone-3 {
+    transform: translate(25px, 15px) rotate(18deg) translateZ(-30px) scale(var(--inactive-scale));
+  }
+
+  .phone-3:hover {
+    z-index: var(--hover-z-index);
+    transform: translate(-15px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+    box-shadow: var(--hover-shadow);
+  }
+}
+
+/* Active States for Touch Devices */
+.phone-stack-container.phone-1-active .phone-1 {
+  z-index: var(--hover-z-index);
+  transform: translate(10px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+  box-shadow: var(--hover-shadow);
+}
+
+.phone-stack-container.phone-1-active .phone-2 {
+  transform: translate(20px, 10px) rotate(5deg) translateZ(-30px) scale(var(--inactive-scale));
+}
+
+.phone-stack-container.phone-1-active .phone-3 {
+  transform: translate(30px, 5px) rotate(15deg) translateZ(-50px) scale(var(--inactive-scale));
+}
+
+.phone-stack-container.phone-2-active .phone-2 {
+  z-index: var(--hover-z-index);
+  transform: translate(-5px, -15px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+  box-shadow: var(--hover-shadow);
+}
+
+.phone-stack-container.phone-2-active .phone-3 {
+  transform: translate(25px, 15px) rotate(18deg) translateZ(-30px) scale(var(--inactive-scale));
+}
+
+.phone-stack-container.phone-3-active .phone-3 {
+  z-index: var(--hover-z-index);
+  transform: translate(-15px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
+  box-shadow: var(--hover-shadow);
+}
+
+/* Touch Overlay System */
+.click-overlay {
+  position: absolute;
+  background: transparent;
+  cursor: pointer;
+  z-index: var(--overlay-z-index);
+  
+  /* Debug mode - uncomment to visualize touch areas */
+  /* background: rgba(255, 0, 0, 0.3); */
+  /* border: 2px solid red; */
+}
+
+.click-overlay-1 {
+  top: var(--phone-1-top);
+  left: var(--phone-1-left);
+  width: var(--phone-width);
+  aspect-ratio: var(--phone-aspect-ratio);
+  transform: rotate(var(--phone-1-rotation));
+  transform-origin: center center;
+}
+
+.click-overlay-2 {
+  top: var(--phone-2-top);
+  left: 200px; /* Adjusted to visible area only */
+  width: 100px; /* Reduced to visible portion */
+  aspect-ratio: var(--phone-aspect-ratio);
+  transform: rotate(var(--phone-2-rotation));
+  transform-origin: center center;
+}
+
+.click-overlay-3 {
+  top: var(--phone-3-top);
+  left: 320px; /* Adjusted to visible area only */
+  width: 100px; /* Reduced to visible portion */
+  aspect-ratio: var(--phone-aspect-ratio);
+  transform: rotate(var(--phone-3-rotation));
+  transform-origin: center center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  :root {
+    --stack-container-width: 400px;
+    --stack-container-height: 350px;
+    --phone-width: 140px;
+  }
+  
+  .phone-stack-container {
+    margin: 30px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --stack-container-width: 320px;
+    --stack-container-height: 280px;
+    --phone-width: 120px;
+    --phone-2-left: 100px;
+    --phone-3-left: 200px;
+  }
+  
+  .click-overlay-2 {
+    left: 180px;
+    width: 80px;
+  }
+  
+  .click-overlay-3 {
+    left: 260px;
+    width: 80px;
+  }
+}
