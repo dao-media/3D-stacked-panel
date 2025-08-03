@@ -2,8 +2,6 @@
 
 An interactive 3D stacked phone component with smooth hover animations and touch support. Perfect for showcasing multiple app screens or design variations in a visually engaging way.
 
-[![See Demo Here](demo.gif)](https://codepen.io/Dane-OLeary/pen/gbamExj)
-
 ## Features
 
 - 🎭 **3D Perspective** - Realistic depth and layering effects
@@ -17,7 +15,7 @@ An interactive 3D stacked phone component with smooth hover animations and touch
 
 ## Demo
 
-[Live Demo](your-demo-link-here) | [View on CodePen](your-codepen-link)
+[Live Demo](your-demo-link-here) | [View on CodePen](https://codepen.io/Dane-OLeary/pen/gbamExj)]
 
 ## Quick Start
 
