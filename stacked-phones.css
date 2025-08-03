@@ -24,12 +24,15 @@
   --phone-3-rotation: 12deg;
   --phone-3-z: -40px;
   
-  /* Hover/Active States */
-  --hover-z-index: 10;
-  --hover-z-translate: 50px;
-  --hover-scale: 1.05;
-  --hover-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  /* Active States */
+  --active-z-index: 10;
+  --active-z-translate: 50px;
+  --active-scale: 1.05;
+  --active-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   --inactive-scale: 0.95;
+  
+  /* Default Shadow */
+  --default-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   
   /* Animation */
   --transition-duration: 0.4s;
@@ -54,11 +57,13 @@
   aspect-ratio: var(--phone-aspect-ratio);
   background: #ffffff;
   border-radius: var(--phone-border-radius);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--default-shadow);
   transition: all var(--transition-duration) var(--transition-easing);
   cursor: pointer;
   overflow: hidden;
   transform-origin: center center;
+  /* EXPLICITLY DISABLE ALL HOVER EFFECTS */
+  pointer-events: none; /* This prevents direct hover on phone cards */
 }
 
 /* Individual Phone Positioning */
@@ -93,44 +98,13 @@
   pointer-events: none;
 }
 
-/* Hover Effects for Desktop */
-@media (hover: hover) and (pointer: fine) {
-  .phone-1:hover {
-    z-index: var(--hover-z-index);
-    transform: translate(10px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-    box-shadow: var(--hover-shadow);
-  }
+/* REMOVED ALL HOVER EFFECTS - Only active states below */
 
-  .phone-1:hover ~ .phone-2 {
-    transform: translate(20px, 10px) rotate(5deg) translateZ(-30px) scale(var(--inactive-scale));
-  }
-
-  .phone-1:hover ~ .phone-3 {
-    transform: translate(30px, 5px) rotate(15deg) translateZ(-50px) scale(var(--inactive-scale));
-  }
-
-  .phone-2:hover {
-    z-index: var(--hover-z-index);
-    transform: translate(-5px, -15px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-    box-shadow: var(--hover-shadow);
-  }
-
-  .phone-2:hover ~ .phone-3 {
-    transform: translate(25px, 15px) rotate(18deg) translateZ(-30px) scale(var(--inactive-scale));
-  }
-
-  .phone-3:hover {
-    z-index: var(--hover-z-index);
-    transform: translate(-15px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-    box-shadow: var(--hover-shadow);
-  }
-}
-
-/* Active States for Touch Devices */
+/* Active States - Click-based Only */
 .phone-stack-container.phone-1-active .phone-1 {
-  z-index: var(--hover-z-index);
-  transform: translate(10px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-  box-shadow: var(--hover-shadow);
+  z-index: var(--active-z-index);
+  transform: translate(10px, -10px) rotate(0deg) translateZ(var(--active-z-translate)) scale(var(--active-scale));
+  box-shadow: var(--active-shadow);
 }
 
 .phone-stack-container.phone-1-active .phone-2 {
@@ -142,9 +116,9 @@
 }
 
 .phone-stack-container.phone-2-active .phone-2 {
-  z-index: var(--hover-z-index);
-  transform: translate(-5px, -15px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-  box-shadow: var(--hover-shadow);
+  z-index: var(--active-z-index);
+  transform: translate(-5px, -15px) rotate(0deg) translateZ(var(--active-z-translate)) scale(var(--active-scale));
+  box-shadow: var(--active-shadow);
 }
 
 .phone-stack-container.phone-2-active .phone-3 {
@@ -152,21 +126,18 @@
 }
 
 .phone-stack-container.phone-3-active .phone-3 {
-  z-index: var(--hover-z-index);
-  transform: translate(-15px, -10px) rotate(0deg) translateZ(var(--hover-z-translate)) scale(var(--hover-scale));
-  box-shadow: var(--hover-shadow);
+  z-index: var(--active-z-index);
+  transform: translate(-15px, -10px) rotate(0deg) translateZ(var(--active-z-translate)) scale(var(--active-scale));
+  box-shadow: var(--active-shadow);
 }
 
-/* Touch Overlay System */
+/* Click Overlay System - Handles ALL interaction */
 .click-overlay {
   position: absolute;
   background: transparent;
   cursor: pointer;
   z-index: var(--overlay-z-index);
-  
-  /* Debug mode - uncomment to visualize touch areas */
-  /* background: rgba(255, 0, 0, 0.3); */
-  /* border: 2px solid red; */
+  /* NO HOVER EFFECTS AT ALL */
 }
 
 .click-overlay-1 {
@@ -180,8 +151,8 @@
 
 .click-overlay-2 {
   top: var(--phone-2-top);
-  left: 200px; /* Adjusted to visible area only */
-  width: 100px; /* Reduced to visible portion */
+  left: 200px;
+  width: 100px;
   aspect-ratio: var(--phone-aspect-ratio);
   transform: rotate(var(--phone-2-rotation));
   transform-origin: center center;
@@ -189,12 +160,16 @@
 
 .click-overlay-3 {
   top: var(--phone-3-top);
-  left: 320px; /* Adjusted to visible area only */
-  width: 100px; /* Reduced to visible portion */
+  left: 320px;
+  width: 100px;
   aspect-ratio: var(--phone-aspect-ratio);
   transform: rotate(var(--phone-3-rotation));
   transform-origin: center center;
 }
+
+/* COMPLETELY REMOVED ALL HOVER EFFECTS */
+/* No @media (hover: hover) blocks */
+/* No :hover selectors anywhere */
 
 /* Responsive Design */
 @media (max-width: 768px) {
